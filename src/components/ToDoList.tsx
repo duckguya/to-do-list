@@ -1,6 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { Categories, categoryState, toDoSelector, toDoState } from "../atoms";
+import {
+  addCategoryState,
+  Categories,
+  categoryState,
+  toDoSelector,
+  toDoState,
+} from "../atoms";
+import CreateCategory from "./CreateCategory";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 
@@ -12,6 +19,16 @@ function ToDoList() {
 
   const toDos = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(categoryState);
+  const [newCategory, setNewCategory] = useRecoilState(addCategoryState);
+
+  useEffect(() => {
+    // 이곳은 렌더링 후 실행
+    return () => {
+      // 렌더링 전에 실행
+      setNewCategory(() => [{ ...Categories }] as any);
+    };
+  }, []);
+
   const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
     setCategory(event.currentTarget.value as any);
   };
@@ -20,10 +37,21 @@ function ToDoList() {
     <div>
       <h1>To Dos</h1>
       <hr />
-      <select value={category} onInput={onInput}>
+      <CreateCategory />
+      {/* <select value={category} onInput={onInput}>
         <option value={Categories.TO_DO}>To Do</option>
         <option value={Categories.DOING}>Doing</option>
         <option value={Categories.DONE}>Done</option>
+      </select> */}
+
+      <select value={category} onInput={onInput}>
+        {newCategory
+          ? Object.keys(newCategory[0] || {}).map((name, index) => (
+              <option value={name} key={index}>
+                {name}
+              </option>
+            ))
+          : null}
       </select>
       <CreateToDo />
       {toDos?.map((toDo) => (
