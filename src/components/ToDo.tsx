@@ -8,6 +8,8 @@ function ToDo({ text, category, id }: IToDo) {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
       const oldToDo = oldToDos[targetIndex];
       const newToDo = { text, id, category: name };
+      oldToDos.slice(0, targetIndex);
+      oldToDos.slice(targetIndex + 1);
       return [
         ...oldToDos.slice(0, targetIndex),
         newToDo,
