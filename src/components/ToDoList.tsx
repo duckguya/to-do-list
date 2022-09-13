@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
 import {
   addCategoryState,
@@ -10,6 +11,53 @@ import {
 import CreateCategory from "./CreateCategory";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
+
+const Container = styled.div`
+  width: 25rem;
+  height: 100%;
+`;
+
+const SelectWrapper = styled.div`
+  display: flex;
+
+  width: 100%;
+  background-color: ${(props) => props.theme.cardBgColor};
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+`;
+const Wrapper = styled.div`
+  width: 100%;
+  margin: 10px;
+`;
+
+const CraeteContentWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  background-color: ${(props) => props.theme.cardBgColor};
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+`;
+
+const Title = styled.p`
+  /* padding: 2rem; */
+  @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+  font-family: "Anton", sans-serif;
+
+  /* @import url("https://fonts.googleapis.com/css2?family=Anton&family=Noto+Serif:ital,wght@0,700;1,700&family=Permanent+Marker&family=Source+Sans+Pro:wght@300;400&family=Ubuntu:wght@700&display=swap");
+  font-family: "Permanent Marker", cursive; */
+`;
+
+const Select = styled.select`
+  /* border-radius: 10px; */
+  border: none;
+  /* padding: 5px; */
+  background-color: ${(props) => props.theme.cardBgColor};
+  cursor: pointer;
+  color: ${(props) => props.theme.bgColor};
+`;
 
 function ToDoList() {
   // const [value, modFn] = useRecoilState(toDoState); // value와 modifier 함수를 반환하다.
@@ -34,30 +82,36 @@ function ToDoList() {
   };
 
   return (
-    <div>
-      <h1>To Dos</h1>
+    <Container>
+      <Title>To Do List</Title>
       <hr />
-      <CreateCategory />
-      {/* <select value={category} onInput={onInput}>
+      <Wrapper>
+        <SelectWrapper>
+          {/* <select value={category} onInput={onInput}>
         <option value={Categories.TO_DO}>To Do</option>
         <option value={Categories.DOING}>Doing</option>
         <option value={Categories.DONE}>Done</option>
       </select> */}
 
-      <select value={category} onInput={onInput}>
-        {newCategory
-          ? Object.keys(newCategory[0] || {}).map((name, index) => (
-              <option value={name} key={index}>
-                {name}
-              </option>
-            ))
-          : null}
-      </select>
-      <CreateToDo />
-      {toDos?.map((toDo) => (
-        <ToDo key={toDo.id} {...toDo} />
-      ))}
-    </div>
+          <Select value={category} onInput={onInput}>
+            {newCategory
+              ? Object.keys(newCategory[0] || {}).map((name, index) => (
+                  <option value={name} key={index}>
+                    {name}
+                  </option>
+                ))
+              : null}
+          </Select>
+          <CreateCategory />
+        </SelectWrapper>
+        <CreateToDo />
+        <CraeteContentWrapper>
+          {toDos?.map((toDo, index) => (
+            <ToDo key={index} {...toDo} />
+          ))}
+        </CraeteContentWrapper>
+      </Wrapper>
+    </Container>
   );
 }
 export default ToDoList;

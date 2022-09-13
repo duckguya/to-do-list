@@ -4,5 +4,5 @@ export const darkTheme: DefaultTheme = {
   bgColor: "#2f3640",
   textColor: "white",
   accentColor: "#ffc048",
-  cardBgColor: "transparent",
+  cardBgColor: "#eee",
 };

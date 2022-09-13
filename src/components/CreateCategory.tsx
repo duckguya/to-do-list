@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import styled from "styled-components";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import {
   addCategoryState,
@@ -6,6 +7,29 @@ import {
   categoryState,
   toDoState,
 } from "../atoms";
+import { FaPlus } from "react-icons/fa";
+
+const Form = styled.form`
+  display: flex;
+  background-color: ${(props) => props.theme.cardBgColor};
+  align-items: center;
+  justify-content: space-between;
+`;
+const Input = styled.input`
+  border: 0;
+  outline: 0;
+  border-bottom: 1px solid ${(props) => props.theme.bgColor};
+  padding: 5px;
+  background-color: ${(props) => props.theme.cardBgColor};
+  width: 90%;
+`;
+
+const AddBtn = styled.button`
+  border: none;
+  padding: 6px 5px 5px 0px;
+  cursor: pointer;
+  color: ${(props) => props.theme.bgColor};
+`;
 
 interface IForm {
   categoryName: string;
@@ -15,9 +39,18 @@ function CreateCategory() {
   // const setCategory = useSetRecoilState(addCategoryState);
   const [category, setCategory] = useRecoilState(categoryState);
   const [newCategories, setNewCategory] = useRecoilState(addCategoryState);
-  const { register, handleSubmit, setValue } = useForm<IForm>();
+  const { register, handleSubmit, setValue, setError } = useForm<IForm>();
 
   const handleValid = ({ categoryName }: IForm) => {
+    // 빈문자열 체크
+    if (categoryName.replace(/\s/g, "") === "") {
+      return setError(
+        "categoryName",
+        { message: "1글자 이상 입력하세요" },
+        { shouldFocus: true }
+      );
+    }
+
     // if (newCategories.length > 0) {
     setNewCategory((oldCategories) => {
       let copy = [...oldCategories];
@@ -40,13 +73,15 @@ function CreateCategory() {
   };
 
   return (
-    <form onSubmit={handleSubmit(handleValid)}>
-      <input
-        {...register("categoryName", { required: "Please write a To Do" })}
-        placeholder="Write a category"
+    <Form onSubmit={handleSubmit(handleValid)}>
+      <Input
+        {...register("categoryName", { required: "Please write a category" })}
+        placeholder="Add a category"
       />
-      <button>Add</button>
-    </form>
+      <AddBtn>
+        <FaPlus />
+      </AddBtn>
+    </Form>
   );
 }
 
