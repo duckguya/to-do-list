@@ -1,4 +1,7 @@
 import { atom, selector } from "recoil";
+//  상태관리를 유지하기 위한 라이브러리. localstorage에 저장한다.
+import { recoilPersist } from "recoil-persist";
+const { persistAtom } = recoilPersist();
 
 export enum Categories {
   "TO_DO" = "TO_DO",
@@ -21,6 +24,7 @@ export interface IAddCategory {
 export const toDoState = atom<IToDo[]>({
   key: "toDo",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const categoryState = atom<Categories>({
@@ -31,6 +35,7 @@ export const categoryState = atom<Categories>({
 export const addCategoryState = atom<IAddCategory[]>({
   key: "addCategory",
   default: [],
+  effects_UNSTABLE: [persistAtom],
 });
 
 export const toDoSelector = selector({

@@ -43,6 +43,7 @@ const CraeteContentWrapper = styled.div`
 
 const Title = styled.p`
   /* padding: 2rem; */
+
   @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
   font-family: "Anton", sans-serif;
 

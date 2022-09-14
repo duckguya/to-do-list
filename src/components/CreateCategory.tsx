@@ -53,6 +53,8 @@ function CreateCategory() {
 
     // if (newCategories.length > 0) {
     setNewCategory((oldCategories) => {
+      // localstorage 저장
+
       let copy = [...oldCategories];
       copy = copy.map((d) => {
         return (d = { ...d, [categoryName]: categoryName });
