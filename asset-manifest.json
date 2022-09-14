@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/duckguya/to-do-list/static/js/main.292c647a.js",
-    "index.html": "/duckguya/to-do-list/index.html",
-    "main.292c647a.js.map": "/duckguya/to-do-list/static/js/main.292c647a.js.map"
+    "main.js": "/to-do-list/static/js/main.de8c4f89.js",
+    "index.html": "/to-do-list/index.html",
+    "main.de8c4f89.js.map": "/to-do-list/static/js/main.de8c4f89.js.map"
   },
   "entrypoints": [
-    "static/js/main.292c647a.js"
+    "static/js/main.de8c4f89.js"
   ]
 }
