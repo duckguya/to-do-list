@@ -88,7 +88,7 @@ function ToDo({ text, category, id }: IToDo) {
   };
 
   return (
-    <Li>
+    <Li key={id}>
       <Content>
         {text}
         <DelBtn onClick={() => delToDo(id)}>x</DelBtn>
@@ -97,23 +97,11 @@ function ToDo({ text, category, id }: IToDo) {
       {/* <Title>text</Title> */}
       {Object.keys(categories[0] || {}).map((name, index) =>
         category !== name ? (
-          <>
-            <CategoryBtn key={index} onClick={() => onClick(name)}>
-              {name}
-            </CategoryBtn>
-          </>
+          <CategoryBtn key={name} onClick={() => onClick(name)}>
+            {name}
+          </CategoryBtn>
         ) : null
       )}
-
-      {/* // {category !== Categories.TO_DO && (
-        //   <button onClick={() => onClick(Categories.TO_DO)}>To Do</button>
-        // )}
-      // {category !== Categories.DOING && (
-      //   <button onClick={() => onClick(Categories.DOING)}>Doing</button>
-      // )}
-      // {category !== Categories.DONE && (
-      //   <button onClick={() => onClick(Categories.DONE)}>Done</button>
-      // )} */}
     </Li>
   );
 }

@@ -100,7 +100,7 @@ function ToDoList() {
           <Select value={category} onInput={onInput}>
             {newCategory
               ? Object.keys(newCategory[0] || {}).map((name, index) => (
-                  <Option value={name} key={index}>
+                  <Option value={name} key={name}>
                     {name}
                   </Option>
                 ))
@@ -111,7 +111,7 @@ function ToDoList() {
         <CreateToDo />
         <CraeteContentWrapper>
           {toDos?.map((toDo, index) => (
-            <ToDo key={index} {...toDo} />
+            <ToDo key={toDo.id} {...toDo} />
           ))}
         </CraeteContentWrapper>
       </Wrapper>
