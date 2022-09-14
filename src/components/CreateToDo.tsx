@@ -6,14 +6,21 @@ import { FaPlus } from "react-icons/fa";
 
 const Wrapper = styled.div`
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+const Form = styled.form`
   width: 100%;
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 20px;
-  align-items: center;
-  justify-content: space-between;
   margin-top: 10px;
+  justify-content: center;
 `;
-const Form = styled.form``;
+const CategoryName = styled.p`
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: bolder;
+`;
 const Input = styled.input`
   width: 90%;
   border: 0;
@@ -33,6 +40,12 @@ const AddBtn = styled.button`
   background-color: ${(props) => props.theme.cardBgColor};
   color: ${(props) => props.theme.textColor};
   cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.accentColor};
+  }
+  &:active {
+    color: ${(props) => props.theme.activeColor};
+  }
 `;
 
 interface IForm {
@@ -53,6 +66,7 @@ function CreateToDo() {
 
   return (
     <Form onSubmit={handleSubmit(handleValid)}>
+      <CategoryName>{category}</CategoryName>
       <Wrapper>
         <Input
           {...register("toDo", { required: "Please write a To Do" })}

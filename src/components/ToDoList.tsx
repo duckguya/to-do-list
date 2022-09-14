@@ -13,7 +13,7 @@ import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 
 const Container = styled.div`
-  width: 25rem;
+  width: 100%;
   height: 100%;
 `;
 
@@ -26,9 +26,9 @@ const SelectWrapper = styled.div`
   justify-content: space-between;
 `;
 const Wrapper = styled.div`
-  width: 100%;
-  margin: 10px;
+  width: 25rem;
   font-family: "Shadows Into Light", cursive;
+  margin: 0 auto;
 `;
 
 const CraeteContentWrapper = styled.div`
@@ -48,6 +48,7 @@ const Title = styled.p`
   text-align: center;
   padding: 1rem;
   color: ${(props) => props.theme.textColor};
+  text-decoration: underline;
 `;
 const Option = styled.option``;
 
@@ -58,7 +59,6 @@ const Select = styled.select`
   cursor: pointer;
   color: ${(props) => props.theme.cardBgColor};
   font-family: "Shadows Into Light", cursive;
-  font-size: 1rem;
   padding-right: 0.3rem;
   padding: 0px 5px;
 `;
@@ -87,9 +87,9 @@ function ToDoList() {
 
   return (
     <Container>
-      <Title>To Do List</Title>
-      {/* <hr /> */}
       <Wrapper>
+        <Title>To Do List</Title>
+        {/* <hr /> */}
         <SelectWrapper>
           {/* <select value={category} onInput={onInput}>
         <option value={Categories.TO_DO}>To Do</option>

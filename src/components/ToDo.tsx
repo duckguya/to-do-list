@@ -15,9 +15,27 @@ const Title = styled.div`
 const Content = styled.div`
   color: ${(props) => props.theme.textColor};
   width: 100%;
-  border-bottom: 1px solid ${(props) => props.theme.textColor};
+  border-bottom: 1px dashed ${(props) => props.theme.textColor};
   margin-bottom: 1rem;
   padding-bottom: 0.3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+const DelBtn = styled.button`
+  border: 1px solid ${(props) => props.theme.textColor};
+  border-radius: 5px;
+  height: 1rem;
+  max-height: 1rem;
+  color: ${(props) => props.theme.textColor};
+  background-color: white;
+  line-height: 10px;
+  margin-left: 0.2rem;
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.accentColor};
+    border: 1px solid ${(props) => props.theme.accentColor};
+  }
 `;
 const CategoryBtn = styled.button`
   /* width: 40%; */
@@ -59,9 +77,23 @@ function ToDo({ text, category, id }: IToDo) {
     });
   };
 
+  const delToDo = (delId: number) => {
+    setToDos((ToDos) => {
+      let copy = [...ToDos];
+      const index = copy.findIndex((e) => e.id === id);
+      copy.splice(index, 1);
+
+      return [...copy];
+    });
+  };
+
   return (
     <Li>
-      <Content> {text}</Content>
+      <Content>
+        {text}
+        <DelBtn onClick={() => delToDo(id)}>x</DelBtn>
+      </Content>
+
       {/* <Title>text</Title> */}
       {Object.keys(categories[0] || {}).map((name, index) =>
         category !== name ? (

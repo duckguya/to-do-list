@@ -34,6 +34,12 @@ const AddBtn = styled.button`
   background-color: ${(props) => props.theme.cardBgColor};
   color: ${(props) => props.theme.textColor};
   cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.accentColor};
+  }
+  &:active {
+    color: ${(props) => props.theme.activeColor};
+  }
 `;
 
 interface IForm {
