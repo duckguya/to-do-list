@@ -71,14 +71,15 @@ function ToDoList() {
 
   const toDos = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(categoryState);
-  const [newCategory, setNewCategory] = useRecoilState(addCategoryState);
+  const [addCategory, setAddCategory] = useRecoilState(addCategoryState);
 
   useEffect(() => {
     // 이곳은 렌더링 후 실행
-    return () => {
-      // 렌더링 전에 실행
-      setNewCategory(() => [{ ...Categories }] as any);
-    };
+    setAddCategory(() => [{ ...Categories }] as any);
+    // return () => {
+    //   // 렌더링 전에 실행
+    //   // setAddCategory(() => [{ ...Categories }] as any);
+    // };
   }, []);
 
   const onInput = (event: React.FormEvent<HTMLSelectElement>) => {
@@ -98,8 +99,8 @@ function ToDoList() {
       </select> */}
 
           <Select value={category} onInput={onInput}>
-            {newCategory
-              ? Object.keys(newCategory[0] || {}).map((name, index) => (
+            {addCategory
+              ? Object.keys(addCategory[0] || {}).map((name, index) => (
                   <Option value={name} key={name}>
                     {name}
                   </Option>
