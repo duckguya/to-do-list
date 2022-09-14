@@ -18,14 +18,20 @@ const Input = styled.input`
   width: 90%;
   border: 0;
   outline: 0;
-  border-bottom: 1px solid ${(props) => props.theme.bgColor};
+  border-bottom: 1px solid ${(props) => props.theme.textColor};
   padding: 5px;
-  background-color: ${(props) => props.theme.cardBgColor}; ;
+  background-color: ${(props) => props.theme.cardBgColor};
+  &::placeholder {
+    font-family: "Shadows Into Light", cursive;
+    color: ${(props) => props.theme.textColor};
+  }
 `;
 
 const AddBtn = styled.button`
   border: none;
   padding: 6px 5px 5px 0px;
+  background-color: ${(props) => props.theme.cardBgColor};
+  color: ${(props) => props.theme.textColor};
   cursor: pointer;
 `;
 

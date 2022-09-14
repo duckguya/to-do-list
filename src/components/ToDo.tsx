@@ -5,25 +5,39 @@ import { addCategoryState, Categories, IToDo, toDoState } from "../atoms";
 const Li = styled.li`
   display: flex;
   width: 100%;
-
-  color: ${(props) => props.theme.bgColor};
+  align-items: center;
+  /* color: ${(props) => props.theme.bgColor}; */
 `;
 const Title = styled.div`
   color: ${(props) => props.theme.bgColor};
 `;
 
 const Content = styled.div`
-  color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.textColor};
   width: 100%;
-  border-bottom: 1px solid ${(props) => props.theme.bgColor};
+  border-bottom: 1px solid ${(props) => props.theme.textColor};
   margin-bottom: 1rem;
+  padding-bottom: 0.3rem;
 `;
 const CategoryBtn = styled.button`
-  color: ${(props) => props.theme.bgColor};
+  /* width: 40%; */
+  height: 1.3rem;
+  max-height: 1.3rem;
+  white-space: nowrap; // 한글 텍스트가 세로로 표기되는 것 방지
+  color: ${(props) => props.theme.accentColor};
+  background-color: white;
+  /* border: 1px solid ${(props) => props.theme.textColor}; */
+  border: none;
   border-radius: 20px;
   font-size: xx-small;
   margin-left: 0.3rem;
   margin-bottom: 1rem;
+  font-family: "Shadows Into Light", cursive;
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.accentColor};
+    border: 1px solid ${(props) => props.theme.accentColor};
+  }
 `;
 
 function ToDo({ text, category, id }: IToDo) {

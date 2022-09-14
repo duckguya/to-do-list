@@ -19,7 +19,6 @@ const Container = styled.div`
 
 const SelectWrapper = styled.div`
   display: flex;
-
   width: 100%;
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 20px;
@@ -29,6 +28,7 @@ const SelectWrapper = styled.div`
 const Wrapper = styled.div`
   width: 100%;
   margin: 10px;
+  font-family: "Shadows Into Light", cursive;
 `;
 
 const CraeteContentWrapper = styled.div`
@@ -42,22 +42,25 @@ const CraeteContentWrapper = styled.div`
 `;
 
 const Title = styled.p`
-  /* padding: 2rem; */
-
-  @import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
-  font-family: "Anton", sans-serif;
-
-  /* @import url("https://fonts.googleapis.com/css2?family=Anton&family=Noto+Serif:ital,wght@0,700;1,700&family=Permanent+Marker&family=Source+Sans+Pro:wght@300;400&family=Ubuntu:wght@700&display=swap");
-  font-family: "Permanent Marker", cursive; */
+  font-family: "Shadows Into Light", cursive;
+  font-weight: bolder;
+  font-size: 2rem;
+  text-align: center;
+  padding: 1rem;
+  color: ${(props) => props.theme.textColor};
 `;
+const Option = styled.option``;
 
 const Select = styled.select`
-  /* border-radius: 10px; */
   border: none;
-  /* padding: 5px; */
-  background-color: ${(props) => props.theme.cardBgColor};
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.textColor};
   cursor: pointer;
-  color: ${(props) => props.theme.bgColor};
+  color: ${(props) => props.theme.cardBgColor};
+  font-family: "Shadows Into Light", cursive;
+  font-size: 1rem;
+  padding-right: 0.3rem;
+  padding: 0px 5px;
 `;
 
 function ToDoList() {
@@ -85,7 +88,7 @@ function ToDoList() {
   return (
     <Container>
       <Title>To Do List</Title>
-      <hr />
+      {/* <hr /> */}
       <Wrapper>
         <SelectWrapper>
           {/* <select value={category} onInput={onInput}>
@@ -97,9 +100,9 @@ function ToDoList() {
           <Select value={category} onInput={onInput}>
             {newCategory
               ? Object.keys(newCategory[0] || {}).map((name, index) => (
-                  <option value={name} key={index}>
+                  <Option value={name} key={index}>
                     {name}
-                  </option>
+                  </Option>
                 ))
               : null}
           </Select>
