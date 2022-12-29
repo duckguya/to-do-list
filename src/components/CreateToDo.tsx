@@ -13,7 +13,6 @@ const Form = styled.form`
   width: 100%;
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 20px;
-  margin-top: 10px;
   justify-content: center;
 `;
 const CategoryName = styled.p`
@@ -40,11 +39,13 @@ const AddBtn = styled.button`
   background-color: ${(props) => props.theme.cardBgColor};
   color: ${(props) => props.theme.textColor};
   cursor: pointer;
+  &:first-child {
+  }
   &:hover {
     color: ${(props) => props.theme.accentColor};
   }
   &:active {
-    color: ${(props) => props.theme.activeColor};
+    color: ${(props) => props.theme.bgColor};
   }
 `;
 
