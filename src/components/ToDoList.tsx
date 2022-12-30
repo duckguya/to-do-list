@@ -12,6 +12,7 @@ import CreateCategory from "./CreateCategory";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
 import DarkToggle from "./DarkToggle";
+import { Helmet } from "react-helmet-async";
 
 function ToDoList() {
   // const [value, modFn] = useRecoilState(toDoState); // value와 modifier 함수를 반환하다.
@@ -39,39 +40,44 @@ function ToDoList() {
   };
 
   return (
-    <Container>
-      <Wrapper>
-        <TopWrapper>
-          <Title>To Do List</Title>
-          {/* <hr /> */}
-          <SelectWrapper>
-            {/* <Select value={category} onInput={onInput}> */}
-            {addCategory
-              ? Object.keys(addCategory[0] || {}).map((name, index) => (
-                  <button onClick={() => onClicked(name)} key={index}>
-                    {name}
-                  </button>
-                  // <Option value={name} key={name}>
-                  // {name}
-                  // </Option>
-                ))
-              : null}
-            {/* </Select> */}
+    <>
+      <Helmet>
+        <title>ToDo</title>
+      </Helmet>
+      <Container>
+        <Wrapper>
+          <TopWrapper>
+            <Title>To Do List</Title>
+            {/* <hr /> */}
+            <SelectWrapper>
+              {/* <Select value={category} onInput={onInput}> */}
+              {addCategory
+                ? Object.keys(addCategory[0] || {}).map((name, index) => (
+                    <button onClick={() => onClicked(name)} key={index}>
+                      {name}
+                    </button>
+                    // <Option value={name} key={name}>
+                    // {name}
+                    // </Option>
+                  ))
+                : null}
+              {/* </Select> */}
 
-            {/* <CreateCategory /> */}
-          </SelectWrapper>
-        </TopWrapper>
+              {/* <CreateCategory /> */}
+            </SelectWrapper>
+          </TopWrapper>
 
-        <CreateWrapper>
-          <CreateToDo />
-          <CraeteContentWrapper>
-            {toDos?.map((toDo, index) => (
-              <ToDo key={toDo.id} {...toDo} />
-            ))}
-          </CraeteContentWrapper>
-        </CreateWrapper>
-      </Wrapper>
-    </Container>
+          <CreateWrapper>
+            <CreateToDo />
+            <CraeteContentWrapper>
+              {toDos?.map((toDo, index) => (
+                <ToDo key={toDo.id} {...toDo} />
+              ))}
+            </CraeteContentWrapper>
+          </CreateWrapper>
+        </Wrapper>
+      </Container>
+    </>
   );
 }
 
