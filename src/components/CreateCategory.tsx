@@ -38,7 +38,6 @@ const AddBtn = styled.button`
     color: ${(props) => props.theme.accentColor};
   }
   &:active {
-    color: ${(props) => props.theme.activeColor};
   }
 `;
 

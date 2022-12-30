@@ -1,13 +1,23 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 import { addCategoryState, Categories, IToDo, toDoState } from "../atoms";
+import { FaEdit, FaPlus, FaArrowRight } from "react-icons/fa";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+
+interface IForm {
+  toDo: string;
+  toDoId: number;
+}
 
 function ToDo({ text, category, id }: IToDo) {
   const [toDos, setToDos] = useRecoilState(toDoState);
   // const setToDos = useSetRecoilState(toDoState);
   const categories = useRecoilValue(addCategoryState);
+  const [isEdit, setIsEdit] = useState(false);
+  const { register, handleSubmit, setValue, setError } = useForm<IForm>();
 
-  const onClick = (name: IToDo["category"]) => {
+  const onClicked = (name: IToDo["category"]) => {
     setToDos((oldToDos) => {
       const targetIndex = oldToDos.findIndex((toDo) => toDo.id === id);
       const newToDo = { text, id, category: name };
@@ -24,24 +34,66 @@ function ToDo({ text, category, id }: IToDo) {
   const delToDo = (delId: number) => {
     setToDos((ToDos) => {
       let copy = [...ToDos];
-      const index = copy.findIndex((e) => e.id === id);
+      const index = copy.findIndex((d) => d.id === id);
       copy.splice(index, 1);
 
       return [...copy];
     });
   };
+  const returnClicked = () => {
+    setIsEdit(false);
+  };
+  // function handleSubmit(handleValid: any): import("react").FormEventHandler<HTMLFormElement> | undefined {
+  //   throw new Error('Function not implemented.');
+  // }
+
+  const handleValid = ({ toDo }: IForm) => {
+    setToDos((ToDos) => {
+      let copy = [...ToDos];
+      const index = copy.findIndex((d) => d.id === id);
+      copy.splice(index, 1);
+
+      return [...copy];
+    });
+
+    setToDos((oldToDos) => [
+      { text: toDo, id: Date.now(), category },
+      ...oldToDos,
+    ]);
+
+    setValue("toDo", "");
+  };
 
   return (
     <Li key={id}>
       <Content>
-        {text}
-        <DelBtn onClick={() => delToDo(id)}>x</DelBtn>
+        {!isEdit ? (
+          <>
+            <div>{text}</div>
+            <BtnWrapper>
+              <FaEdit className="EditBtn" onClick={() => setIsEdit(true)} />
+              <DelBtn onClick={() => delToDo(id)}>x</DelBtn>
+            </BtnWrapper>
+          </>
+        ) : (
+          <Form onSubmit={handleSubmit(handleValid)}>
+            <Input
+              {...register("toDo", { required: "Please write a To Do" })}
+              placeholder="Write a to do"
+              defaultValue={text}
+            />
+            <AddBtn>
+              <FaPlus />
+            </AddBtn>
+            <FaArrowRight className="arrowBtn" onClick={returnClicked} />
+          </Form>
+        )}
       </Content>
 
       {/* <Title>text</Title> */}
       {Object.keys(categories[0] || {}).map((name, index) =>
         category !== name ? (
-          <CategoryBtn key={name} onClick={() => onClick(name)}>
+          <CategoryBtn key={name} onClick={() => onClicked(name)}>
             {name}
           </CategoryBtn>
         ) : null
@@ -50,6 +102,48 @@ function ToDo({ text, category, id }: IToDo) {
   );
 }
 
+// styled-component
+
+const Form = styled.form`
+  width: 100%;
+  display: flex;
+  background-color: ${(props) => props.theme.cardBgColor};
+  align-items: center;
+  justify-content: space-between;
+  .arrowBtn {
+    cursor: pointer;
+  }
+  .arrowBtn:hover {
+    color: ${(props) => props.theme.accentColor};
+  }
+  .arrowBtn:active {
+    color: gray;
+  }
+`;
+const Input = styled.input`
+  border: 0;
+  outline: 0;
+  background-color: ${(props) => props.theme.cardBgColor};
+  width: 100%;
+  font-family: "Shadows Into Light", cursive;
+  color: ${(props) => props.theme.textColor};
+  &::placeholder {
+    font-family: "Shadows Into Light", cursive;
+    color: ${(props) => props.theme.textColor};
+  }
+`;
+
+const AddBtn = styled.button`
+  border: none;
+  background-color: ${(props) => props.theme.cardBgColor};
+  color: ${(props) => props.theme.textColor};
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.accentColor};
+  }
+  &:active {
+  }
+`;
 const Li = styled.li`
   display: flex;
   width: 100%;
@@ -64,30 +158,44 @@ const Content = styled.div`
   color: ${(props) => props.theme.textColor};
   width: 100%;
   border-bottom: 1px dashed ${(props) => props.theme.textColor};
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
+  margin: 0 5px 18px 0;
   padding: 0 0 5px 5px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
-const DelBtn = styled.button`
-  border: 1px solid ${(props) => props.theme.accentColor};
-  border-radius: 5px;
-  width: 20px;
-  height: 17px;
-  color: ${(props) => props.theme.accentColor};
-  background-color: ${(props) => props.theme.cardBgColor};
-  line-height: 10px;
-  margin-left: 0.2rem;
+
+const BtnWrapper = styled.div`
+  display: flex;
   cursor: pointer;
-  &:hover {
-    color: ${(props) => props.theme.accentColor};
-    border: 1px solid ${(props) => props.theme.accentColor};
+  .EditBtn {
+    color: gray;
   }
-  &:active {
-    height: 16px;
+  .EditBtn:first-child:hover {
+    color: ${(props) => props.theme.textColor};
+  }
+  .EditBtn:first-child:active {
+    color: gray;
   }
 `;
+const DelBtn = styled.div`
+  border-radius: 5px;
+  height: 17px;
+  line-height: 10px;
+  margin-left: 0.5rem;
+  background-color: ${(props) => props.theme.cardBgColor};
+  border: none;
+  color: ${(props) => props.theme.accentColor};
+  cursor: pointer;
+  &:hover {
+    color: ${(props) => props.theme.textColor};
+  }
+  &:active {
+    color: gray;
+  }
+`;
+
 const CategoryBtn = styled.button`
   /* width: 40%; */
   height: 1.3rem;
@@ -111,4 +219,5 @@ const CategoryBtn = styled.button`
     height: 1.2rem;
   }
 `;
+
 export default ToDo;

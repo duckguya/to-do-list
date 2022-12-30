@@ -117,7 +117,7 @@ const SelectWrapper = styled.div`
   }
 `;
 const Wrapper = styled.div`
-  width: 25rem;
+  width: 30rem;
   font-family: "Shadows Into Light", cursive;
   margin: 0 auto;
   height: 94vh;
@@ -127,7 +127,7 @@ const Wrapper = styled.div`
 const CraeteContentWrapper = styled.div`
   display: flex;
   width: 100%;
-  max-height: 300px;
+  max-height: 520px;
   overflow: scroll;
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 20px;
