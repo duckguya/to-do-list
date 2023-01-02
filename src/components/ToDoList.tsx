@@ -125,12 +125,16 @@ const CraeteContentWrapper = styled.div`
   display: flex;
   width: 100%;
   max-height: 520px;
-  overflow: scroll;
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 20px;
   align-items: center;
   justify-content: space-between;
   flex-direction: column;
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
 `;
 
 const Title = styled.p`
