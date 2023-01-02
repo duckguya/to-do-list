@@ -56,9 +56,6 @@ function ToDoList() {
                     <button onClick={() => onClicked(name)} key={index}>
                       {name}
                     </button>
-                    // <Option value={name} key={name}>
-                    // {name}
-                    // </Option>
                   ))
                 : null}
               {/* </Select> */}

@@ -41,7 +41,7 @@ export const categoryState = atom<Categories>({
 export const addCategoryState = atom<IAddCategory[]>({
   key: "addCategory",
   default: [],
-  effects_UNSTABLE: [persistAtom],
+  // effects_UNSTABLE: [persistAtom],
 });
 
 export const toDoSelector = selector({

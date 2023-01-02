@@ -4,6 +4,48 @@ import styled from "styled-components";
 import { categoryState, toDoState } from "../atoms";
 import { FaPlus } from "react-icons/fa";
 
+interface IForm {
+  toDo: string;
+}
+
+function CreateToDo() {
+  const setToDos = useSetRecoilState(toDoState);
+  let category = useRecoilValue(categoryState);
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<IForm>();
+
+  const handleValid = ({ toDo }: IForm) => {
+    setToDos((oldToDos) => [
+      { text: toDo, id: Date.now(), category },
+      ...oldToDos,
+    ]);
+    setValue("toDo", "");
+  };
+
+  return (
+    <Form onSubmit={handleSubmit(handleValid)}>
+      <CategoryName>{category}</CategoryName>
+      <Wrapper>
+        <Input
+          {...register("toDo", { required: "Please write a To Do" })}
+          placeholder="Write a to do"
+          autoComplete="off"
+        />
+        {errors.toDo?.type === "required" && (
+          <Error>Please write a To Do</Error>
+        )}
+        <AddBtn>
+          <FaPlus />
+        </AddBtn>
+      </Wrapper>
+    </Form>
+  );
+}
+
 const Wrapper = styled.div`
   display: flex;
   align-items: center;
@@ -31,11 +73,12 @@ const Input = styled.input`
     font-family: "Shadows Into Light", cursive;
     color: ${(props) => props.theme.textColor};
   }
+  position: relative;
 `;
 
 const AddBtn = styled.button`
   border: none;
-  padding: 6px 5px 5px 0px;
+  padding: 6px 5px 5px -10px;
   background-color: ${(props) => props.theme.cardBgColor};
   color: ${(props) => props.theme.textColor};
   cursor: pointer;
@@ -48,39 +91,12 @@ const AddBtn = styled.button`
     color: ${(props) => props.theme.bgColor};
   }
 `;
-
-interface IForm {
-  toDo: string;
-}
-
-function CreateToDo() {
-  const setToDos = useSetRecoilState(toDoState);
-  let category = useRecoilValue(categoryState);
-  const { register, handleSubmit, setValue } = useForm<IForm>();
-
-  const handleValid = ({ toDo }: IForm) => {
-    setToDos((oldToDos) => [
-      { text: toDo, id: Date.now(), category },
-      ...oldToDos,
-    ]);
-    setValue("toDo", "");
-  };
-
-  return (
-    <Form onSubmit={handleSubmit(handleValid)}>
-      <CategoryName>{category}</CategoryName>
-      <Wrapper>
-        <Input
-          {...register("toDo", { required: "Please write a To Do" })}
-          placeholder="Write a to do"
-          autoComplete="off"
-        />
-        <AddBtn>
-          <FaPlus />
-        </AddBtn>
-      </Wrapper>
-    </Form>
-  );
-}
-
+const Error = styled.div`
+  color: ${(props) => props.theme.accentColor};
+  font-size: 12px;
+  width: 200px;
+  background-color: transparent;
+  position: absolute;
+  right: 80px;
+`;
 export default CreateToDo;

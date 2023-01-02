@@ -15,7 +15,13 @@ function ToDo({ text, category, id }: IToDo) {
   // const setToDos = useSetRecoilState(toDoState);
   const categories = useRecoilValue(addCategoryState);
   const [isEdit, setIsEdit] = useState(false);
-  const { register, handleSubmit, setValue, setError } = useForm<IForm>();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    setError,
+    formState: { errors },
+  } = useForm<IForm>();
 
   const onClicked = (name: IToDo["category"]) => {
     setToDos((oldToDos) => {
@@ -47,6 +53,7 @@ function ToDo({ text, category, id }: IToDo) {
   //   throw new Error('Function not implemented.');
   // }
 
+  // todo 수정
   const handleValid = ({ toDo }: IForm) => {
     setToDos((ToDos) => {
       let copy = [...ToDos];
@@ -82,6 +89,9 @@ function ToDo({ text, category, id }: IToDo) {
               placeholder="Write a to do"
               defaultValue={text}
             />
+            {errors.toDo?.type === "required" && (
+              <Error>Please write a To Do</Error>
+            )}
             <AddBtn>
               <FaPlus />
             </AddBtn>
@@ -218,6 +228,12 @@ const CategoryBtn = styled.button`
   &:active {
     height: 1.2rem;
   }
+`;
+
+const Error = styled.div`
+  color: ${(props) => props.theme.accentColor};
+  font-size: 12px;
+  width: 200px;
 `;
 
 export default ToDo;
