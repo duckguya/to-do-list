@@ -57,16 +57,11 @@ function ToDo({ text, category, id }: IToDo) {
   const handleValid = ({ toDo }: IForm) => {
     setToDos((ToDos) => {
       let copy = [...ToDos];
+      const newToDo = { text: toDo, id: Date.now(), category };
       const index = copy.findIndex((d) => d.id === id);
       copy.splice(index, 1);
-
-      return [...copy];
+      return [...ToDos.slice(0, index), newToDo, ...ToDos.slice(index + 1)];
     });
-
-    setToDos((oldToDos) => [
-      { text: toDo, id: Date.now(), category },
-      ...oldToDos,
-    ]);
 
     setValue("toDo", "");
   };
