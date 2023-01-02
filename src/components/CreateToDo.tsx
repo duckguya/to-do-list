@@ -73,6 +73,7 @@ function CreateToDo() {
         <Input
           {...register("toDo", { required: "Please write a To Do" })}
           placeholder="Write a to do"
+          autoComplete="off"
         />
         <AddBtn>
           <FaPlus />
