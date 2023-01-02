@@ -27,22 +27,24 @@ function CreateToDo() {
   };
 
   return (
-    <Form onSubmit={handleSubmit(handleValid)}>
+    <>
       <CategoryName>{category}</CategoryName>
-      <Wrapper>
-        <Input
-          {...register("toDo", { required: "Please write a To Do" })}
-          placeholder="Write a to do"
-          autoComplete="off"
-        />
-        {errors.toDo?.type === "required" && (
-          <Error>Please write a To Do</Error>
-        )}
-        <AddBtn>
-          <FaPlus />
-        </AddBtn>
-      </Wrapper>
-    </Form>
+      <Form onSubmit={handleSubmit(handleValid)}>
+        <Wrapper>
+          <Input
+            {...register("toDo", { required: "Please write a To Do" })}
+            placeholder="Write a to do"
+            autoComplete="off"
+          />
+          {errors.toDo?.type === "required" && (
+            <Error>Please write a To Do</Error>
+          )}
+          <AddBtn>
+            <FaPlus />
+          </AddBtn>
+        </Wrapper>
+      </Form>
+    </>
   );
 }
 
@@ -50,35 +52,40 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-bottom: 1.5px solid ${(props) => props.theme.textColor};
 `;
 const Form = styled.form`
+  /* display: flex; */
   width: 100%;
   background-color: ${(props) => props.theme.cardBgColor};
   padding: 20px;
   justify-content: center;
 `;
+
 const CategoryName = styled.p`
   text-align: center;
   font-size: 1.4rem;
   font-weight: bolder;
+  background-color: ${(props) => props.theme.cardBgColor};
+  padding-top: 25px;
 `;
 const Input = styled.input`
   width: 90%;
   border: 0;
   outline: 0;
-  border-bottom: 1px solid ${(props) => props.theme.textColor};
+  /* border-bottom: 1px solid ${(props) => props.theme.textColor}; */
   padding: 5px;
   background-color: ${(props) => props.theme.cardBgColor};
   &::placeholder {
     font-family: "Shadows Into Light", cursive;
     color: ${(props) => props.theme.textColor};
   }
-  position: relative;
+  /* position: relative; */
 `;
 
 const AddBtn = styled.button`
   border: none;
-  padding: 6px 5px 5px -10px;
+  padding: 6px 5px 5px 0px;
   background-color: ${(props) => props.theme.cardBgColor};
   color: ${(props) => props.theme.textColor};
   cursor: pointer;
@@ -96,7 +103,6 @@ const Error = styled.div`
   font-size: 12px;
   width: 200px;
   background-color: transparent;
-  position: absolute;
-  right: 80px;
+  /* position: absolute; */
 `;
 export default CreateToDo;
